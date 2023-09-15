@@ -1,4 +1,4 @@
-import { CanToggleElement, playhtml } from "@playhtml/react";
+import { playhtml } from "@playhtml/react";
 import "./App.scss";
 import akariUF4L8 from "./assets/lamps/Akari-UF4-L8.png";
 import akari10D from "./assets/lamps/Akari-10D.png";
@@ -7,12 +7,8 @@ import akariUF3Q from "./assets/lamps/Akari-UF3-Q.png";
 import akari16A from "./assets/lamps/Akari-16A.png";
 import akariVB13T from "./assets/lamps/Akari-VB-13T.png";
 import classNames from "classnames";
-import {
-  SoundContext,
-  SoundProvider,
-  SoundType,
-} from "./components/SoundProvider";
-import { useContext } from "react";
+import { SoundProvider } from "./context/SoundProvider";
+import { Lamp } from "./components/Lamp";
 
 interface StoreItem {
   name: string;
@@ -193,47 +189,11 @@ function ItemPreview(item: StoreItem) {
     <div className="itemPreview">
       <Lamp
         {...item}
+        id={item.imgSrc}
         className={classNames("itemPreviewImg", item.className)}
       />
       <h3 className="itemPreviewTitle">{item.name}</h3>
     </div>
-  );
-}
-
-function Lamp({
-  imgSrc,
-  name,
-  className,
-  style,
-  height,
-  width,
-  selectorId,
-}: {
-  imgSrc: string;
-  name: string;
-  className?: string;
-  style?: React.CSSProperties;
-  width?: number | null;
-  height?: number | null;
-  selectorId?: string;
-}) {
-  const { playSound } = useContext(SoundContext);
-
-  return (
-    <CanToggleElement>
-      <img
-        id={imgSrc}
-        src={imgSrc}
-        alt={name}
-        className={classNames(`lamp`, className)}
-        width={width === null || width ? width || "" : "200"}
-        height={height === null || height ? height || "" : "200"}
-        loading="lazy"
-        style={style}
-        selector-id={selectorId}
-        onClick={() => playSound(SoundType.LampOn)}
-      />
-    </CanToggleElement>
   );
 }
 
