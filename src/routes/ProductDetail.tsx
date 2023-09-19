@@ -1,28 +1,24 @@
 import { useLoaderData } from "react-router-dom";
-import { StoreItem } from "../store";
+import { StoreItem, doesItemHavePrice } from "../store";
 import "./ProductDetail.scss";
 import { ProductAsset } from "../components/ProductAsset";
 import classNames from "classnames";
 
 export function ProductDetail() {
   const { item } = useLoaderData() as { item: StoreItem };
-  const {
-    name,
-    description,
-    sourceUrl,
-    price,
-    originalPrice,
-    discount,
-    maxPrice,
-  } = item;
+  const { name, description, sourceUrl, originalPrice, maxPrice } = item;
+
+  const subtotal = doesItemHavePrice(item)
+    ? item.price
+    : originalPrice * (1 - item.discount);
 
   const finalPrice = Math.min(
-    Math.max(Math.round(price || originalPrice * (1 - discount)), 1),
+    Math.max(Math.round(subtotal), 1),
     maxPrice || Infinity
   );
-  const discountPercent = discount
-    ? discount * 100
-    : finalPrice / originalPrice;
+  const discountPercent = doesItemHavePrice(item)
+    ? finalPrice / originalPrice
+    : item.discount * 100;
 
   return (
     <div className="itemDetail">

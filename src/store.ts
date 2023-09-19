@@ -13,8 +13,19 @@ interface StoreItemBase {
   maxPrice?: number;
 }
 
-export type StoreItem = StoreItemBase &
-  ({ price: number } | { discount: number });
+interface StoreItemWithPrice extends StoreItemBase {
+  price: number;
+}
+
+interface StoreItemWithDiscount extends StoreItemBase {
+  discount: number;
+}
+
+export function doesItemHavePrice(item: StoreItem): item is StoreItemWithPrice {
+  return "price" in item;
+}
+
+export type StoreItem = StoreItemWithPrice | StoreItemWithDiscount;
 type StoreItemWithoutId = Omit<StoreItem, "id">;
 
 const HangingLamps = new Set([
@@ -207,13 +218,13 @@ export const Lamps: StoreItemWithoutId[] = Object.values(
     originalPrice: LampPrices[lampName],
     discount: 0.99,
     maxPrice: 5,
-  };
+  } as StoreItemWithDiscount;
 });
 
 export const Store: Record<string, StoreItem> = Object.fromEntries(
   [...Lamps].map((lamp) => {
     const id = lamp.name.replace(" ", "-");
-    return [id, { ...lamp, id }];
+    return [id, { ...lamp, id } as StoreItemWithDiscount];
   })
 );
 
