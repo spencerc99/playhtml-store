@@ -21,18 +21,20 @@ body {
 }
 
 button {
-  border-radius: 8px;
+  border-radius: 1em;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.6em 2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #f857ee;
+  box-shadow: 0px 0px 8px 4px #f857ed9c;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
+  transition: box-shadow 0.25s;
+
+  &:hover {
+    box-shadow: 0px 0px 18px 10px #f857ed9c;
+  }
 }
 button:focus,
 button:focus-visible {
@@ -59,7 +61,8 @@ button:focus-visible {
   3. Allow percentage-based heights in the application
 */
 html,
-body {
+body,
+#root {
   height: 100%;
 }
 

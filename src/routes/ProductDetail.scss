@@ -1,0 +1,38 @@
+.itemDetail {
+  margin-top: min(4em, 8vh);
+  display: grid;
+  grid-template-columns: 40% auto;
+  gap: 4em;
+
+  p {
+    margin: 1em 0;
+  }
+}
+
+.itemDetailCtas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 4em;
+
+  .itemDetailPrice {
+    font-weight: 500;
+  }
+  button {
+    width: fit-content;
+
+    &:hover {
+    }
+  }
+}
+
+.itemDetailAssets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.itemDetailImg {
+  max-width: 500px;
+  height: auto;
+}
